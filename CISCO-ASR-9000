@@ -1,0 +1,673 @@
+## ASR-9000-VLAN-SUB-INTERFACE
+Configuration Examples for VLAN Interfaces
+This section contains the following example:
+
+VLAN Subinterfaces: Example
+The following example shows how to create three VLAN subinterfaces at one time:
+
+
+RP/0/RSP0/CPU0:router# configure 
+RP/0/RSP0/CPU0:router(config)# interface TenGigE 0/2/0/4.1  
+
+RP/0/RSP0/CPU0:router(config-subif)# encapsulation dot1q 100 
+RP/0/RSP0/CPU0:router(config-subif)# ipv4 address 10.0.10.1/24 
+RP/0/RSP0/CPU0:router(config-subif)# interface TenGigE0/2/0/4.2 
+
+RP/0/RSP0/CPU0:router(config-subif)# encapsulation dot1q 101 
+RP/0/RSP0/CPU0:router(config-subif)# ipv4 address 10.0.20.1/24 
+RP/0/RSP0/CPU0:router(config-subif)# interface TenGigE0/2/0/4.3 
+
+RP/0/RSP0/CPU0:router(config-subif)# encapsulation dot1q 102 
+RP/0/RSP0/CPU0:router(config-subif)# ipv4 address 10.0.30.1/24  
+RP/0/RSP0/CPU0:router(config-subif)# commit 
+RP/0/RSP0/CPU0:router(config-subif)# exit 
+RP/0/RSP0/CPU0:router(config)# exit 
+
+RP/0/RSP0/CPU0:router# show ethernet trunk bundle-Ether 1 
+Trunk                                Sub types        Sub states
+VLAN trunks: 1,
+  1 are 802.1Q (Ether)
+Sub-interfaces: 3,
+  3 are up.
+802.1Q VLANs: 3,
+  3 have VLAN Ids,
+
+RP/0//CPU0:router# show vlan interface Interface     St Ly    MTU    Subs       L2      L3       Up    Down  Ad-Down
+Te0/2/0/4.1         802.1Q              10  up
+Te0/2/0/4.2         802.1Q              20  up
+Te0/2/0/4.3         802.1Q              30  up
+RP/0//CPU0:router# show vlan trunks brief BE1           Up L3   1514    1000        0    1000     1000       0       0
+
+Summary                       1000        0    1000     1000       0       0
+
+Te0/2/0/4           802.1Q (Ether)        up
+
+The following example shows how to create two VLAN subinterfaces on an Ethernet bundle:
+
+
+RP/0/RSP0/CPU0:router# configure 
+RP/0/RSP0/CPU0:router(config)# interface bundle-ether 2 
+RP/0/RSP0/CPU0:router(config-if)# ipv4 address 192.168.2.1/24 
+RP/0/RSP0/CPU0:router(config-if)# exit 
+RP/0/RSP0/CPU0:router(config)# interface bundle-ether 2.1 
+
+RP/0/RSP0/CPU0:router(config-subif)# encapsulation dot1q 100 
+RP/0/RSP0/CPU0:router(config-subif)# ipv4 address 192.168.100.1/24 
+RP/0/RSP0/CPU0:router(config-subif)# exit 
+RP/0/RSP0/CPU0:router(config)# interface bundle-ether 2.2 
+
+RP/0/RSP0/CPU0:router(config-subif)# encapsulation dot1q 200 
+RP/0/RSP0/CPU0:router(config-subif)# ipv4 address 192.168.200.1/24 
+RP/0/RSP0/CPU0:router(config-subif)# exit 
+RP/0/RSP0/CPU0:router(config)# commit 
+
+The following example shows how to create a basic dot1Q AC:
+
+
+RP/0/RSP0/CPU0:router# configure 
+RP/0/RSP0/CPU0:router(config)# interface GigabitEthernet 0/0/0/0.1 
+RP/0/RSP0/CPU0:router(config-subif)# l2transport 
+
+RP/0/RSP0/CPU0:router(config-subif)# encapsulation dot1q 100 
+RP/0/RSP0/CPU0:router(config-subif)# commit 
+RP/0/RSP0/CPU0:router(config-subif)# exit 
+RP/0/RSP0/CPU0:router(config)# exit 
+
+The following example shows how to create a Q-in-Q AC:
+
+
+RP/0/RSP0/CPU0:router# configure 
+RP/0/RSP0/CPU0:router(config)# interface GigabitEthernet 0/0/0/0.2 
+RP/0/RSP0/CPU0:router(config-subif)# l2transport 
+
+RP/0/RSP0/CPU0:router(config-subif)# 
+RP/0/RSP0/CPU0:router(config-subif)# commit 
+RP/0/RSP0/CPU0:router(config-subif)# exit 
+RP/0/RSP0/CPU0:router(config)# exit 
+
+The following example shows how to create a Q-in-Any AC:
+
+
+RP/0/RSP0/CPU0:router# configure 
+RP/0/RSP0/CPU0:router(config)# interface GigabitEthernet 0/0/0/0.3 
+RP/0/RSP0/CPU0:router(config-subif)# l2transport 
+RP/0/0/CPU0:router(config-subif)# dot1q vlan 30 vlan any 
+RP/0/RSP0/CPU0:router(config-subif)# encapsulation dot1q 300 second-dot1q any  
+RP/0/RSP0/CPU0:router(config-subif)# commit 
+RP/0/RSP0/CPU0:router(config-subif)# exit 
+RP/0/RSP0/CPU0:router(config)# exit 
+
+
+##Policy-Map Input Output
+
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:44:49.390 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface Te0/0/0/9.1701
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:45:09.089 BDT
+
+% Failed to commit one or more configuration items during a pseudo-atomic operation. All changes made have been reverted. Please issue 'show configuration failed [inheritance]' from this session to view the errors
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#sh conf
+% Ambiguous command:  "sh conf"
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#sh confi
+% Ambiguous command:  "sh confi"
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#sh confi
+% Ambiguous command:  "sh confi"
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#
+Uncommitted changes found, commit them before exiting(yes/no/cancel)? [cancel]:n
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface Te0/0/0/9.1701
+Sat Jul 29 11:45:47.536 BDT
+interface TenGigE0/0/0/9.1701
+ description JOLIL-INT
+ ipv4 address 10.10.125.1 255.255.255.252
+ encapsulation dot1q 1701
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:45:53.231 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface TenGigE0/0/0/9.1701
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:46:14.868 BDT
+
+% Failed to commit one or more configuration items during a pseudo-atomic operation. All changes made have been reverted. Please issue 'show configuration failed [inheritance]' from this session to view the errors
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#show configuration failed
+Sat Jul 29 11:46:32.028 BDT
+!! SEMANTIC ERRORS: This configuration was rejected by
+!! the system due to semantic errors. The individual
+!! errors with each failed configuration command can be
+!! found below.
+
+
+interface TenGigE0/0/0/9.1701
+ service-policy input jolil-int
+!!% 'qos-lib' detected the 'warning' condition 'MQC: Policer peak rate is less than the conform rate'
+ service-policy output jolil-int
+!!% 'qos-lib' detected the 'warning' condition 'MQC: Policer peak rate is less than the conform rate'
+!
+end
+
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#
+Uncommitted changes found, commit them before exiting(yes/no/cancel)? [cancel]:n
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config policy-map jolil-int
+Sat Jul 29 11:48:41.181 BDT
+policy-map jolil-int
+ class class-default
+  police rate 350 mbps peak-rate percent 2
+   conform-action transmit
+  !
+ !
+ end-policy-map
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:48:44.612 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#policy-map jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)# class class-default
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 350 mbps peak-rate ?
+  <1-4294967295>  Peak Information Rate
+  percent         Percent of the link bandwidth
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 350 mbps ?
+  burst       Burst size (BC)
+  peak-burst  Excess Burst size (BE)
+  peak-rate   Peak Information Rate
+  <cr>
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 350 mbps peak-burst ?
+  <1-4294967295>  Excess burst size (BE)
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 350 mbps ?
+  burst       Burst size (BC)
+  peak-burst  Excess Burst size (BE)
+  peak-rate   Peak Information Rate
+  <cr>
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 350 mbps peak-rate ?
+  <1-4294967295>  Peak Information Rate
+  percent         Percent of the link bandwidth
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 370 mbps
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#conform-action transmit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#commit
+Sat Jul 29 11:50:21.209 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:50:26.050 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface TenGigE0/0/0/9.1701
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:50:40.836 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#interface TenGigE0/0/0/9.1702
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:51:01.994 BDT
+
+% Failed to commit one or more configuration items during a pseudo-atomic operation. All changes made have been reverted. Please issue 'show configuration failed [inheritance]' from this session to view the errors
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#
+Uncommitted changes found, commit them before exiting(yes/no/cancel)? [cancel]:n
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config policy-map jolil-ggc
+Sat Jul 29 11:51:18.812 BDT
+policy-map jolil-ggc
+ class class-default
+  police rate 700 mbps peak-rate percent 2
+   conform-action transmit
+  !
+ !
+ end-policy-map
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config policy-map jolil-fna
+Sat Jul 29 11:51:21.942 BDT
+policy-map jolil-fna
+ class class-default
+  police rate 800 mbps peak-rate percent 2
+   conform-action transmit
+  !
+ !
+ end-policy-map
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:51:24.170 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#policy-map jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)# class class-default
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 900 mbps
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#conform-action transmit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#commit
+Sat Jul 29 11:51:38.523 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#exit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#exit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)#exit
+RP/0/RSP0/CPU0:AntBD-CTG(config)#policy-map jolil-fna
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)# class class-default
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 900 mbps
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#conform-action transmit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#commit
+Sat Jul 29 11:52:04.060 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:52:07.448 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface TenGigE0/0/0/9.1702
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:52:37.309 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#interface TenGigE0/0/0/9.1703
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-fna
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-fna
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:52:56.192 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface TenGigE0/0/0/9.1703
+Sat Jul 29 11:53:05.188 BDT
+interface TenGigE0/0/0/9.1703
+ description JOLIL-FNA
+ service-policy input jolil-fna
+ service-policy output jolil-fna
+ vrf FNA
+ ipv4 address 10.10.124.1 255.255.255.252
+ encapsulation dot1q 1703
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface TenGigE0/0/0/9.1702
+Sat Jul 29 11:53:09.334 BDT
+interface TenGigE0/0/0/9.1702
+ description JOLIL-GGC
+ service-policy input jolil-ggc
+ service-policy output jolil-ggc
+ vrf GGC
+ ipv4 address 10.10.121.1 255.255.255.252
+ encapsulation dot1q 1702
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface TenGigE0/0/0/9.1701
+Sat Jul 29 11:53:13.012 BDT
+interface TenGigE0/0/0/9.1701
+ description JOLIL-INT
+ service-policy input jolil-int
+ service-policy output jolil-int
+ ipv4 address 10.10.125.1 255.255.255.252
+ encapsulation dot1q 1701
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh arp
+arp  arp-gmp
+RP/0/RSP0/CPU0:AntBD-CTG#sh arp
+Sat Jul 29 11:57:37.818 BDT
+
+-------------------------------------------------------------------------------
+0/1/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+10.161.172.89   03:03:21   e85c.0a19.88e2  Dynamic    ARPA  Bundle-Ether52.1500
+10.161.172.90   -          4055.392a.f622  Interface  ARPA  Bundle-Ether52.1500
+103.73.105.57   -          5087.8967.2577  Interface  ARPA  TenGigE0/1/0/23.504
+103.73.105.58   00:43:55   488f.5ac1.34c4  Dynamic    ARPA  TenGigE0/1/0/23.504
+103.73.106.57   -          5087.8967.2577  Interface  ARPA  TenGigE0/1/0/23.502
+103.73.106.58   02:42:08   488f.5ac1.34c4  Dynamic    ARPA  TenGigE0/1/0/23.502
+103.73.107.77   -          5087.8967.2577  Interface  ARPA  TenGigE0/1/0/23.500
+103.73.107.78   00:00:12   488f.5ac1.34c4  Dynamic    ARPA  TenGigE0/1/0/23.500
+103.133.203.117 -          5087.8967.2577  Interface  ARPA  TenGigE0/1/0/23.501
+103.133.203.118 00:00:55   488f.5ac1.34c4  Dynamic    ARPA  TenGigE0/1/0/23.501
+103.135.253.57  -          5087.8967.2577  Interface  ARPA  TenGigE0/1/0/23.503
+103.135.253.58  01:39:10   488f.5ac1.34c4  Dynamic    ARPA  TenGigE0/1/0/23.503
+
+-------------------------------------------------------------------------------
+0/0/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+10.1.0.22       -          e0ac.f17f.12a8  Interface  ARPA  TenGigE0/0/0/8.1363
+10.10.50.1      -          e0ac.f17f.12ac  Interface  ARPA  TenGigE0/0/0/12
+10.10.50.2      00:00:25   e61d.8075.670f  Dynamic    ARPA  TenGigE0/0/0/12
+10.10.51.1      -          e0ac.f17f.12ad  Interface  ARPA  TenGigE0/0/0/13
+10.10.51.2      00:00:07   5a38.4a6e.9ac0  Dynamic    ARPA  TenGigE0/0/0/13
+10.10.60.1      -          e0ac.f17f.12ae  Interface  ARPA  TenGigE0/0/0/14
+10.10.60.2      00:00:02   fe9c.9c1e.0eca  Dynamic    ARPA  TenGigE0/0/0/14
+10.10.61.1      -          e0ac.f17f.12af  Interface  ARPA  TenGigE0/0/0/15
+10.10.61.2      00:00:09   8e2a.d494.71de  Dynamic    ARPA  TenGigE0/0/0/15
+10.10.125.1     -          e0ac.f17f.12a9  Interface  ARPA  TenGigE0/0/0/9.1701
+10.10.125.2     00:00:34   0025.90e5.6477  Dynamic    ARPA  TenGigE0/0/0/9.1701
+10.10.125.9     -          4055.392a.f61b  Interface  ARPA  Bundle-Ether51.407
+10.10.125.10    01:09:42   6c9c.ed08.afdb  Dynamic    ARPA  Bundle-Ether51.407
+10.10.125.13    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3012
+10.10.125.17    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3016
+10.10.125.18    00:00:33   c4ad.3460.f722  Dynamic    ARPA  Bundle-Ether50.3016
+10.10.125.25    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.2574
+10.10.125.26    00:00:50   b869.f4b2.ff2e  Dynamic    ARPA  Bundle-Ether50.2574
+10.10.125.41    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.411
+10.10.125.42    00:04:32   6c3b.6b08.d9b5  Dynamic    ARPA  Bundle-Ether50.411
+10.10.125.43    00:00:17   64d1.5482.08a3  Dynamic    ARPA  Bundle-Ether50.411
+RP/0/RSP0/CPU0:AntBD-CTG#sh arp vrf GGC
+Sat Jul 29 11:58:42.974 BDT
+
+-------------------------------------------------------------------------------
+0/1/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+10.201.172.25   03:18:16   e85c.0a19.88e3  Dynamic    ARPA  Bundle-Ether52.410
+10.201.172.26   -          4055.392a.f622  Interface  ARPA  Bundle-Ether52.410
+10.201.172.113  -          0000.0000.0000  Deleted    ARPA  Bundle-Ether52.355
+10.201.172.114  -          4055.392a.f622  Interface  ARPA  Bundle-Ether52.355
+103.73.105.209  -          4055.392a.f619  Interface  ARPA  BVI2
+103.73.105.212  01:06:08   08c0.ebf9.0338  Dynamic    ARPA  BVI2
+103.73.105.213  01:02:02   1070.fd3c.5e20  Dynamic    ARPA  BVI2
+103.73.105.216  00:00:04   08c0.ebf9.0338  Dynamic    ARPA  BVI2
+103.73.105.217  00:00:01   1070.fd3c.5e20  Dynamic    ARPA  BVI2
+103.73.105.220  00:00:01   1070.fd3c.5e20  Dynamic    ARPA  BVI2
+103.73.105.221  00:00:04   08c0.ebf9.0338  Dynamic    ARPA  BVI2
+103.73.105.222  00:00:01   08c0.ebf9.0338  Dynamic    ARPA  BVI2
+103.73.105.225  -          4055.392a.f619  Interface  ARPA  BVI1
+103.73.105.228  02:46:21   d094.6658.cc54  Dynamic    ARPA  BVI1
+103.73.105.229  01:32:38   d094.6654.bc81  Dynamic    ARPA  BVI1
+103.73.105.236  00:00:04   d094.6658.cc54  Dynamic    ARPA  BVI1
+103.73.105.237  00:00:00   d094.6654.bc81  Dynamic    ARPA  BVI1
+103.73.105.252  00:00:04   d094.6654.bc81  Dynamic    ARPA  BVI1
+103.73.105.253  00:00:04   d094.6658.cc54  Dynamic    ARPA  BVI1
+103.73.105.254  00:00:01   d094.6658.cc54  Dynamic    ARPA  BVI1
+
+-------------------------------------------------------------------------------
+0/0/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+10.10.121.1     -          e0ac.f17f.12a9  Interface  ARPA  TenGigE0/0/0/9.1702
+10.10.121.2     00:00:12   0025.90e5.6477  Dynamic    ARPA  TenGigE0/0/0/9.1702
+10.10.121.21    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3013
+10.10.121.25    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3017
+10.10.121.26    00:00:45   c4ad.3460.f722  Dynamic    ARPA  Bundle-Ether50.3017
+10.10.121.41    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3053
+10.10.121.42    00:00:05   744d.2856.e85f  Dynamic    ARPA  Bundle-Ether50.3053
+10.10.121.57    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.412
+10.10.121.58    00:00:04   0000.0000.0000  Incomplete ARPA  Bundle-Ether50.412
+10.10.121.59    00:00:38   64d1.5482.08a3  Dynamic    ARPA  Bundle-Ether50.412
+10.10.121.69    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.2575
+10.10.121.70    00:00:02   b869.f4b2.ff2e  Dynamic    ARPA  Bundle-Ether50.2575
+10.10.121.85    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.412
+RP/0/RSP0/CPU0:AntBD-CTG#sh arp vrf FNA
+Sat Jul 29 11:59:03.702 BDT
+
+-------------------------------------------------------------------------------
+0/1/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+103.73.105.1    -          4055.392a.f61d  Interface  ARPA  Bundle-Ether1
+103.73.105.2    00:39:59   2899.3a6b.da9d  Dynamic    ARPA  Bundle-Ether1
+172.21.172.97   02:05:32   e85c.0a19.88e3  Dynamic    ARPA  Bundle-Ether52.310
+172.21.172.98   -          4055.392a.f622  Interface  ARPA  Bundle-Ether52.310
+
+-------------------------------------------------------------------------------
+0/0/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+10.10.124.1     -          e0ac.f17f.12a9  Interface  ARPA  TenGigE0/0/0/9.1703
+10.10.124.2     00:00:30   0025.90e5.6477  Dynamic    ARPA  TenGigE0/0/0/9.1703
+10.10.124.17    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3014
+10.10.124.49    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.413
+10.10.124.51    00:01:58   64d1.5482.08a3  Dynamic    ARPA  Bundle-Ether50.413
+10.10.124.69    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.2576
+10.10.124.70    00:00:33   b869.f4b2.ff2e  Dynamic    ARPA  Bundle-Ether50.2576
+10.10.124.85    -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.413
+10.10.124.86    00:00:04   0000.0000.0000  Incomplete ARPA  Bundle-Ether50.413
+10.10.124.105   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.459
+10.10.124.106   00:46:23   18fd.747c.8ac9  Dynamic    ARPA  Bundle-Ether50.459
+10.10.124.109   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.463
+10.10.124.110   00:46:28   90e2.ba63.3e0c  Dynamic    ARPA  Bundle-Ether50.463
+10.10.124.113   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.1227
+10.10.124.114   00:00:25   c4ad.3460.f721  Dynamic    ARPA  Bundle-Ether50.1227
+10.10.124.117   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.1237
+10.10.124.118   01:19:19   0855.31d0.e85f  Dynamic    ARPA  Bundle-Ether50.1237
+10.10.124.125   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.471
+10.10.124.126   00:00:04   0000.0000.0000  Incomplete ARPA  Bundle-Ether50.471
+10.10.124.129   -          4055.392a.f61b  Interface  ARPA  Bundle-Ether51.405
+10.10.124.130   02:48:36   6c9c.ed08.afdb  Dynamic    ARPA  Bundle-Ether51.405
+10.10.124.133   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3018
+10.10.124.134   00:00:51   c4ad.3460.f722  Dynamic    ARPA  Bundle-Ether50.3018
+10.10.124.181   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.3079
+10.10.124.182   00:00:03   2cc8.1b9b.065f  Dynamic    ARPA  Bundle-Ether50.3079
+10.10.124.245   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.421
+10.10.124.246   00:00:03   ca90.1302.de2d  Dynamic    ARPA  Bundle-Ether50.421
+10.10.124.249   -          4055.392a.f627  Interface  ARPA  Bundle-Ether50.425
+10.10.124.253   -          e0ac.f17f.12aa  Interface  ARPA  TenGigE0/0/0/10
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 12:07:16.583 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface TenGigE0/0/0/9.1704
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#description FAST-NET-INT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#encapsulation dot1q 1704
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#ipv4 add 10.10.125.5 255.255.255.252
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#no shutdown
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 12:08:09.977 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#interface TenGigE0/0/0/9.1705
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#vrf GGC
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#encapsulation dot1q 1705
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#description FAST-NET-GGC
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#ipv4 add 10.10.121.5 255.255.255.252
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#no shutdown
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 12:08:44.450 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#interface TenGigE0/0/0/9.1706
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#vrf FNA
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#encapsulation dot1q 1706
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#description FAST-NET-FNA
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#ipv4 add 10.10.124.5 255.255.255.252
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#no shutdown
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 12:09:19.345 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#
+RP/0/RSP0/CPU0:AntBD-CTG#sh interfaces description
+Sat Jul 29 12:09:24.185 BDT
+
+Interface          Status      Protocol    Description
+--------------------------------------------------------------------------------
+BV1                up          up          ANTBD-CGP1
+BV2                up          up          ANTBD-CGP2
+BE1                up          up          FNA-NODE-CTG
+BE5                up          up          F@H-LACP
+BE5.2434           up          up          F@H-INTERNET
+BE5.2435           up          up          F@H-BLACKHOLE
+BE5.2436           up          up          F@H-CLEAN-TRAFFIC
+BE5.2437           up          up          F@H-CDN
+BE21               up          up          PEEREX-BUNDEL
+BE21.551           up          up          PEEREX-BLACKHOLE
+BE21.596           up          up          PEEREX-INT-NEW
+BE50               up          up          TO-AGRABAD-WAN
+BE50.200           up          up          ACCESS1-GGC
+BE50.201           up          up          ACCESS2-GGC
+BE50.202           up          up          ACCESS3-GGC
+BE50.203           up          up          ACCESS4-GGC
+BE50.204           up          up          ACCESS5-GGC
+BE50.205           up          up          ACCESS6-GGC
+BE50.220           up          up          BW-ROUTER-GGC
+BE50.221           up          up          BW-ROUTER-GGC-2
+BE50.320           up          up          BW-ROUTER-INT
+BE50.321           up          up          BW-ROUTER-INT-2
+BE50.411           up          up          BASTECH-INT
+BE50.412           up          up          BASTECH-GGC        
+
+##ASR-9000 POLICY-MAP
+
+policy-map ccl-int
+ class class-default
+  police rate 480 mbps
+   conform-action transmit
+   exceed-action drop
+
+router bgp 132298
+ neighbor 10.10.125.118
+  remote-as 139865
+  description IQTEL-BITROOT-INT
+  address-family ipv4 unicast
+   route-policy iqtel-bitroot-int in
+   route-policy int_default_out out
+
+1.interface Bundle-Ether50.411
+ description BASTECH-INT
+ service-policy input bastech_int
+ service-policy output bastech_int
+ ipv4 address 10.10.125.41 255.255.255.248
+ encapsulation dot1q 411
+ ipv4 access-group iig_upload ingress
+
+
+## ASR-30-STEELMILL
+
+Policy_Map
+===========
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:44:49.390 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface Te0/0/0/9.1701
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface Te0/0/0/9.1701
+
+RP/0/RSP0/CPU0:AntBD-CTG(config)#policy-map jolil-int
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)# class class-default
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)# police rate 370 mbps
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#conform-action transmit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#commit
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config policy-map jolil-fna
+Sat Jul 29 11:51:21.942 BDT
+policy-map jolil-fna
+ class class-default
+  police rate 800 mbps peak-rate percent 2
+   conform-action transmit
+  !
+ !
+ end-policy-map
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG(config)#policy-map jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)# class class-default
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 900 mbps
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#conform-action transmit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#commit
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config policy-map jolil-fna
+Sat Jul 29 11:51:21.942 BDT
+policy-map jolil-fna
+ class class-default
+  police rate 800 mbps peak-rate percent 2
+   conform-action transmit
+  !
+ !
+ end-policy-map
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:51:24.170 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#policy-map jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)# class class-default
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 900 mbps
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#conform-action transmit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#commit
+Sat Jul 29 11:51:38.523 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#exit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#exit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)#exit
+RP/0/RSP0/CPU0:AntBD-CTG(config)#policy-map jolil-fna
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap)# class class-default
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c)#  police rate 900 mbps
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#conform-action transmit
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#commit
+Sat Jul 29 11:52:04.060 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-pmap-c-police)#
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 11:52:07.448 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface TenGigE0/0/0/9.1702
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-ggc
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:52:37.309 BDT
+
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#interface TenGigE0/0/0/9.1703
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy input jolil-fna
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#service-policy output jolil-fna
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 11:52:56.192 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface TenGigE0/0/0/9.1703
+Sat Jul 29 11:53:05.188 BDT
+interface TenGigE0/0/0/9.1703
+ description JOLIL-FNA
+ service-policy input jolil-fna
+ service-policy output jolil-fna
+ vrf FNA
+ ipv4 address 10.10.124.1 255.255.255.252
+ encapsulation dot1q 1703
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface TenGigE0/0/0/9.1702
+Sat Jul 29 11:53:09.334 BDT
+interface TenGigE0/0/0/9.1702
+ description JOLIL-GGC
+ service-policy input jolil-ggc
+ service-policy output jolil-ggc
+ vrf GGC
+ ipv4 address 10.10.121.1 255.255.255.252
+ encapsulation dot1q 1702
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh running-config interface TenGigE0/0/0/9.1701
+Sat Jul 29 11:53:13.012 BDT
+interface TenGigE0/0/0/9.1701
+ description JOLIL-INT
+ service-policy input jolil-int
+ service-policy output jolil-int
+ ipv4 address 10.10.125.1 255.255.255.252
+ encapsulation dot1q 1701
+!
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh arp vrf GGC
+
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 12:07:16.583 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#interface TenGigE0/0/0/9.1704
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#description FAST-NET-INT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#encapsulation dot1q 1704
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#ipv4 add 10.10.125.5 255.255.255.252
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#no shutdown
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 12:08:09.977 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#interface TenGigE0/0/0/9.1705
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#vrf GGC
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#encapsulation dot1q 1705
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#description FAST-NET-GGC
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#ipv4 add 10.10.121.5 255.255.255.252
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#no shutdown
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+Sat Jul 29 12:08:44.450 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#interface TenGigE0/0/0/9.1706
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#vrf FNA
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#encapsulation dot1q 1706
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#description FAST-NET-FNA
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#ipv4 add 10.10.124.5 255.255.255.252
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#no shutdown
+RP/0/RSP0/CPU0:AntBD-CTG(config-subif)#commit
+
+RP/0/RSP0/CPU0:AntBD-CTG#sh interfaces description
+
+prefix_set_and_bgp_config
+=========================
+RP/0/RSP0/CPU0:AntBD-CTG#configure
+Sat Jul 29 12:09:34.184 BDT
+RP/0/RSP0/CPU0:AntBD-CTG(config)#prefix-set fast_net_in
+RP/0/RSP0/CPU0:AntBD-CTG(config-pfx)#end-set
+RP/0/RSP0/CPU0:AntBD-CTG(config)#route-policy fast_net_in
+RP/0/RSP0/CPU0:AntBD-CTG(config-rpl)#if destination in fast_net_in then
+RP/0/RSP0/CPU0:AntBD-CTG(config-rpl-if)#pass
+RP/0/RSP0/CPU0:AntBD-CTG(config-rpl-if)#else
+RP/0/RSP0/CPU0:AntBD-CTG(config-rpl-else)#drop
+RP/0/RSP0/CPU0:AntBD-CTG(config-rpl-else)#endif
+RP/0/RSP0/CPU0:AntBD-CTG(config-rpl)#end-policy
+RP/0/RSP0/CPU0:AntBD-CTG(config)#router bgp 132298
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp)#neighbor 10.10.125.6
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp-nbr)#remote-as 132298
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp-nbr)#description FAST-NET-INT
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp-nbr)#address-family ipv4 unicast
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp-nbr-af)#route-policy fast_net_in in
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp-nbr-af)#route-policy int_default_out out
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp-nbr-af)#next-hop-self
+RP/0/RSP0/CPU0:AntBD-CTG(config-bgp-nbr-af)#commit
