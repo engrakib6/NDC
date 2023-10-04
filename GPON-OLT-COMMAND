@@ -1,0 +1,41 @@
+GPON-OLT-COMMAND
+================
+
+BATTERY-GOLI-OLT#show interface brief gigaEthernet 0/1-8
+BATTERY-GOLI-OLT#show interface brief gpON 0/1-8
+BATTERY-GOLI-OLT#show interface brief tGigaEthernet 0/1-4
+BATTERY-GOLI-OLT#show aggregator-group brief
+BATTERY-GOLI-OLT#show aggregator-group detail
+BATTERY-GOLI-OLT#show cpu
+BATTERY-GOLI-OLT#show ddm
+BATTERY-GOLI-OLT#show arp
+BATTERY-GOLI-OLT#show ip interface brief
+BATTERY-GOLI-OLT#show ip traffic
+BATTERY-GOLI-OLT#show  spanning-tree detail
+BATTERY-GOLI-OLT#show  spanning-tree interface gigaEthernet 0/2
+BATTERY-GOLI-OLT#show gpon  active-onu interface gPON 0/1
+BATTERY-GOLI-OLT#show gpon inactive-onu interface gPON 0/1
+BATTERY-GOLI-OLT#show gpon interface gPON 0/1:1 onu ?
+  basic-info                     -- ONU basic information
+  catv-info                      -- CATV information
+  ip-host                        -- ONU IP Host port
+  optical-transceiver-diagnosis  -- Optical transceiver diagnosis
+  permission                     -- Dyn ctrl's permission information
+  poe-status                     -- Poe status
+  port                           -- ONU uni port statistics
+  uni-vlan-config                -- Uni vlan config information
+  virtual-port                   -- ONU virtual port statistics
+  voip-status                    -- Voip status
+  wan                            -- ONU WAN port
+  wifi                           -- ONU WIFI config information
+
+BATTERY-GOLI-OLT#show gpon onu-information interface gPON 0/1
+BATTERY-GOLI-OLT#show gpon onu-optical-transceiver-diagnosis interface gPON 0/1
+BATTERY-GOLI-OLT#show gpon onu-rejected-information interface gPON 0/1
+BATTERY-GOLI-OLT#show gpon onu-status-count
+BATTERY-GOLI-OLT#show gpon onu-image-information interface gpON 0/1
+BATTERY-GOLI-OLT#show gpon optical-transceiver-diagnosis interface gPON 0/1
+BATTERY-GOLI-OLT#show mac address-table dynamic vlan 10
+BATTERY-GOLI-OLT#show mac address-table dynamic interface gpON 0/1
+BATTERY-GOLI-OLT#show mac address-table brief
+BATTERY-GOLI-OLT#show mac address-table interface tGigaEthernet 0/2
