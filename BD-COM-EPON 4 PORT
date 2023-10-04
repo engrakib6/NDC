@@ -1,0 +1,61 @@
+BD-COM-EPON 4 PORT 
+==================
+
+NMOLT2#show interface brief
+NMOLT2#show interface brief gigaEthernet 0/1-6
+NMOLT2#show interface brief ePON 0/1-4
+NMOLT2#show version all
+NMOLT2#show arp local
+NMOLT2#show break
+System OK,No break info
+NMOLT2#show configuration
+NMOLT2#show configuration | include epon
+NMOLT2#show core-dump
+NMOLT2#show cpu
+NMOLT2#show ddm
+NMOLT2#show dot1x statistics
+NMOLT2#show dscp map
+
+Epon Command 
+=============
+
+NMOLT2#show epon active-onu interface ePON 0/1
+NMOLT2#show epon basic-info
+NMOLT2#show epon inactive-onu interface epON 0/1
+
+NMOLT2#show epon onu-ctc-optical-transceiver-diagnosis interface ePON 0/1
+NMOLT2#show epon optical-transceiver-diagnosis interface ePON 0/1
+
+NMOLT2#show epon onu-information detail interface ePON 0/1
+NMOLT2#show epon onu-information interface ePON 0/1
+NMOLT2#show epon onu-software-version interface ePON 0/1
+NMOLT2#show epon onu-status-count
+
+NMOLT2#show epon rejected-onu interface ePON 0/1
+
+
+NMOLT2#show epon interface ePON 0/1:4 onu ctc basic-info
+NMOLT2#show epon interface ePON 0/1:4 onu ctc optical-transceiver-diagnosis
+NMOLT2#show epon interface ePON 0/1:4 onu port 1 state
+NMOLT2#show ethernet oam ctc version-negotiation-result interface ePON 0/1
+
+NMOLT2#show fan
+NMOLT2#show ip traffic
+NMOLT2#show ip http
+NMOLT2#show ip interface brief
+NMOLT2#show local-users
+
+NMOLT2#show mac address-table dynamic interface gigaEthernet 0/6
+
+NMOLT2#show mac address-table brief
+NMOLT2#show mac address-table vlan 10
+NMOLT2#show mac address-table dynamic vlan 10
+NMOLT2#show ntp
+NMOLT2#show resource
+NMOLT2#show running-config interface gigaEthernet 0/6
+NMOLT2#show task switch-record current
+NMOLT2#show temperature
+NMOLT2#show vlan id 10
+NMOLT2#show vlan interface ePON 0/1
+NMOLT2#show vlan interface gigaEthernet 0/6
+NMOLT2#show vlan
