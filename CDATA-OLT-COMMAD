@@ -1,0 +1,24 @@
+CDATA-OLT
+=========
+
+AGRABDAD-OLT# show cpu
+AGRABDAD-OLT# show device
+AGRABDAD-OLT# show fan
+AGRABDAD-OLT# show ip route
+AGRABDAD-OLT# show memory
+AGRABDAD-OLT# show power state
+AGRABDAD-OLT# show saved-config
+AGRABDAD-OLT# show temperature
+AGRABDAD-OLT# show uptime
+AGRABDAD-OLT# show version
+
+AGRABDAD-OLT(config)# show ont info 0/0 1 all
+AGRABDAD-OLT(config)# show ont info all
+AGRABDAD-OLT(config)# show ont port state 0/0 1 1 eth all
+AGRABDAD-OLT(config-interface-gpon-0/0)# show ont optical-info 1 2
+AGRABDAD-OLT(config-interface-gpon-0/0)# show ont optical-info 1 all
+AGRABDAD-OLT(config)# show mac-address port gpon 0/0/1 ont 5
+AGRABDAD-OLT(config)# show vlan all
+AGRABDAD-OLT(config)# show interface vlanif 10
+AGRABDAD-OLT(config)# show service-port vlan 501 gpon 0/0 port 2
+AGRABDAD-OLT(config-interface-gpon-0/0)# show ont run-info 1 1
