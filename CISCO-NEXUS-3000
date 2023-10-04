@@ -1,0 +1,212 @@
+## CISCO-NEXUS-3000 ##
+======================
+AG-WAN-NEXUS-SW
+===============
+AGRABAD-WAN-SW(config)# 
+AGRABAD-WAN-SW(config)# interface port-channel 22
+AGRABAD-WAN-SW(config-if)# description ITEL
+AGRABAD-WAN-SW(config-if)# SWItchport MOde TRunk 
+AGRABAD-WAN-SW(config-if)# SWItchport TRunk 
+allowed   native    
+AGRABAD-WAN-SW(config-if)# SWItchport TRunk allowed vlan 800,801
+AGRABAD-WAN-SW(config-if)# no shutdown 
+AGRABAD-WAN-SW(config-if)# exit
+AGRABAD-WAN-SW(config)# interface ethernet 1/36 
+AGRABAD-WAN-SW(config-if)# channel-group 22 force mode active 
+AGRABAD-WAN-SW(config-if)# interface ethernet 1/38 
+AGRABAD-WAN-SW(config-if)# channel-group 22 force mode active 
+AGRABAD-WAN-SW(config-if)# exit
+AGRABAD-WAN-SW# copy running-config startup-config 
+[########################################] 100%
+Copy complete, now saving to disk (please wait)...
+AGRABAD-WAN-SW# configure 
+Enter configuration commands, one per line. End with CNTL/Z.
+AGRABAD-WAN-SW(config)# 
+AGRABAD-WAN-SW(config)# interface port-channel 22
+AGRABAD-WAN-SW(config-if)# description ITEL
+AGRABAD-WAN-SW(config-if)# SWItchport TRunk allowed vlan 800,801
+AGRABAD-WAN-SW(config-if)# no shutdown 
+AGRABAD-WAN-SW(config-if)# exit
+AGRABAD-WAN-SW(config)# interface ethernet 1/36 
+AGRABAD-WAN-SW(config-if)# channel-group 22 force mode active 
+AGRABAD-WAN-SW(config-if)# interface ethernet 1/38 
+AGRABAD-WAN-SW(config-if)# channel-group 22 force mode active 
+AGRABAD-WAN-SW(config-if)# 
+AGRABAD-WAN-SW(config-if)# exit
+AGRABAD-WAN-SW(config)# exit
+AGRABAD-WAN-SW# copy running-config startup-config 
+[########################################] 100%
+Copy complete, now saving to disk (please wait)...
+Copy complete.
+
+AGRABAD-WAN-SW# show running-config interface port-channel 22
+
+!Command: show running-config interface port-channel22
+!Running configuration last done at: Tue Apr 18 14:59:16 2023
+!Time: Tue Apr 18 15:02:30 2023
+
+version 7.0(3)I7(7) Bios:version 4.5.0 
+
+interface port-channel22
+  description ITEL
+  switchport mode trunk
+  switchport trunk allowed vlan 800-801
+
+
+  BUNDLE/LACP/PORT-CHANNEL, VLAN, Speed Configuration
+=======================================================
+
+  BUNDLE/LACP/PORT-CHANNEL, VLAN, Speed Configuration
+
+SHUGANDHA-WAN-SW# show running-config interface ethernet 1/47
+
+!Command: show running-config interface Ethernet1/47
+!Time: Thu Apr 27 10:53:47 2023
+
+version 7.0(3)I4(3)
+
+interface Ethernet1/47
+  description RONI-SHOLAKBHOR
+  switchport mode trunk
+  switchport trunk allowed vlan 90,257-260,355-358,367-370,601-604,1200,1202,1301-1312
+  channel-group 16 mode active
+
+NEXUS-SWITCH-3000
+=================
+reset interface
+SUGONDHA-LAN-SW(config-if)# default interface ethernet 1/8
+SUGONDHA-LAN-SW#show running-config interface ethernet 1/8
+SUGONDHA-LAN-SW(config)# interface ethernet 1/9
+SUGONDHA-LAN-SW(config-if)# switchport trunk allowed vlan add 1000-1016
+
+SUGONDHA-LAN-SW(config)# interface ethernet 1/8
+SUGONDHA-LAN-SW(config-if)# channel-group 21 force mode active
+SUGONDHA-LAN-SW(config)# interface ethernet 1/9
+SUGONDHA-LAN-SW(config-if)# channel-group 21 force mode active
+SUGONDHA-LAN-SW(config)# interface port-channel 21
+SUGONDHA-LAN-SW(config-if)# switchport trunk allowed vlan 10
+SUGONDHA-LAN-SW(config-if)# switchport trunk allowed vlan add 1000-1016
+SUGONDHA-LAN-SW(config-if)# switchport trunk allowed vlan remove 1016
+SUGONDHA-LAN-SW(config)# no vlan 1016
+
+SUGONDHA-LAN-SW# show running-config interface port-channel 21
+
+!Command: show running-config interface port-channel21
+!Time: Thu Apr 27 12:10:11 2023
+
+version 7.0(3)I4(8a)
+
+interface port-channel21
+  switchport mode trunk
+  switchport trunk allowed vlan 10,1000-1015
+
+SUGONDHA-LAN-SW#
+SUGONDHA-LAN-SW# show port-channel traffic interface port-channel 21
+NOTE: Clear the port-channel member counters to get accurate statistics
+
+ChanId      Port Rx-Ucst Tx-Ucst Rx-Mcst Tx-Mcst Rx-Bcst Tx-Bcst
+------ --------- ------- ------- ------- ------- ------- -------
+    21    Eth1/8    0.0%    0.0%    0.0%    0.0%    0.0%    0.0%
+    21    Eth1/9 100.00% 100.00% 100.00% 100.00% 100.00% 100.00%
+
+
+  NEXUS-ETHERNET-SFP-PORT-CONFIG
+  ===============================
+
+SHUGANDHA-WAN-SW# show logging last 10
+SHUGANDHA-WAN-SW(config)# interface ethernet 1/46
+SHUGANDHA-WAN-SW(config-if)# description MAXNET
+SHUGANDHA-WAN-SW(config-if)# switchport mode trunk
+SHUGANDHA-WAN-SW(config-if)# switchport trunk allowed vlan 609
+SHUGANDHA-WAN-SW(config-if)# switchport trunk allowed vlan add 610-612
+SHUGANDHA-WAN-SW(config-if)# exit
+
+
+NEXUS-3000 SWITCH COMMAND
+=========================
+AGRABAD-WAN-SW# show version
+AGRABAD-WAN-SW# show clock detail
+AGRABAD-WAN-SW# show environment fan
+AGRABAD-WAN-SW# show environment power
+AGRABAD-WAN-SW# show environment temperature
+fan          Fan information
+power        Power capacity and power distribution information
+temperature  Temperature sensor information
+
+AGRABAD-WAN-SW# show hardware ?
+access-list         Access Control List
+capacity            Usage levels
+feature-capability  Show registered features supported
+forwarding          Show hardware information for forwarding path
+internal            Show hardware internal information
+mac                 MAC configuration commands
+profile             Profile
+qos                 Show qos related information
+rate-limiter        Show Rate-Limiter configs and statistics
+|                   Pipe command output to filter
+
+
+AGRABAD-WAN-SW# show interface ?
+  <CR>
+  >                      Redirect it to a file
+  >>                     Redirect it to a file in append mode
+  brief                  Show brief info of interface
+  capabilities           Show interface capabilities information
+  counters               Show interface counters
+  debounce               Show interface debounce time information
+  description            Show interface description
+  ethernet               Ethernet IEEE 802.3z
+  fec                    Show interface fec list
+  flowcontrol            Show interface flowcontrol information
+  hardware-mappings      Show hardware port number and unit information for interfaces
+  ii                     Internal HiGig2
+  loopback               Loopback interface
+  mac-address            Show interface MAC address
+  mgmt                   Management interface
+  port-channel           Port Channel interface
+  priority-flow-control  Show interface PFC information
+  quick                  Show info of interface skipping stats
+  snmp-ifindex           Show snmp ifindex list
+  status                 Show interface line status
+  switchport             Show interface switchport information
+  transceiver            Show interface transceiver information
+  trunk                  Show interface trunk information
+  untagged-cos           Show interface untagged CoS information
+  vlan                   Vlan interface
+
+AGRABAD-WAN-SW# show lacp ?
+  counters           LACP counters
+  interface          Specify a interface
+  internal           Show lacp service internal status
+  issu-impact        Check for ISSU readiness
+  neighbor           LACP interface neighbor
+  port-channel       LACP port-channels
+  system-identifier  Show system-identifier information
+
+AGRABAD-WAN-SW# show mac address-table ?
+  <CR>
+  <1-16>        Module Number
+  >             Redirect it to a file
+  >>            Redirect it to a file in append mode
+  address       Address
+  aging-time    Configured/default age
+  count         Number of MAC entries
+  dynamic       Display Dynamic Entries
+  es            EVPN Remote ESID
+  interface     Interface
+  local         Display MAC Entries Learned Locally and Not on the Overlay/VXLAN
+  loop-detect   Display Action for Mac Loop Detection
+  multicast     Mcast mac OIF Static Entry
+  notification  Display Notification Information
+  peer-ip       VXLAN Peer IP Address
+  secure        Display Secure Entries
+  static        Display Static Entries
+  vlan          VLAN
+  vni           VXLAN Network Identifier
+  |             Pipe command output to filter
+
+
+  
+
+  
+  
